@@ -23,10 +23,7 @@ export const orderBurger = createAsyncThunk(
   async (orderData: string[]) => orderBurgerApi(orderData)
 );
 
-export const userOrders = createAsyncThunk('order/userOrders', async () => {
-  const userOrders = await getOrdersApi();
-  return userOrders;
-});
+export const userOrders = createAsyncThunk('order/userOrders', getOrdersApi);
 
 type TOrderState = {
   constructorOrder: {

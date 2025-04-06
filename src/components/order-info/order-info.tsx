@@ -4,10 +4,7 @@ import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
 import { useSelector, useDispatch } from '../../services/store';
-import {
-  getIngredientsListSelector,
-  getIngredients
-} from '../../slices/ingredientsSlice';
+import { getIngredientsListSelector } from '../../slices/ingredientsSlice';
 import { getFeedSelectorByNumber, getFeeds } from '../../slices/feedsSlice';
 import {
   getUserOrderByNumberSelector,
@@ -30,15 +27,10 @@ export const OrderInfo: FC = () => {
 
   useEffect(() => {
     if (!orderNumber) return;
-
-    if (!orderData || !ingredients) {
-      dispatch(getIngredients());
-
-      if (profileMatch) {
-        dispatch(getOrderByNumber(Number(orderNumber))); // например, загрузка заказов пользователя
-      } else if (feedMatch) {
-        dispatch(getFeeds()); // загрузка публичного фида
-      }
+    if (profileMatch) {
+      dispatch(getOrderByNumber(Number(orderNumber)));
+    } else if (feedMatch) {
+      dispatch(getFeeds());
     }
   }, []);
 

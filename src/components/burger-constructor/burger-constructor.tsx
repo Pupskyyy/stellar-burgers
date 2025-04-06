@@ -9,6 +9,7 @@ import {
   orderBurger,
   resetOrderData
 } from '../../slices/orderSlice';
+import { getIsAuthenticatedSelector } from '../../slices/userSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
@@ -24,6 +25,8 @@ export const BurgerConstructor: FC = () => {
 
   const orderModalData = useSelector(getOrderModalDataSelector);
 
+  const isAuthenticated = useSelector(getIsAuthenticatedSelector);
+
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
     // Собираем массив id ингредиентов для заказа
@@ -33,9 +36,14 @@ export const BurgerConstructor: FC = () => {
       constructorItems.bun._id
     ];
 
+    if (!isAuthenticated) {
+      navigate('/login', { state: { from: location } });
+      return;
+    }
     // Диспатчим экшен для создания заказа
     dispatch(orderBurger(ingredientsIds));
   };
+
   const closeOrderModal = () => {
     dispatch(resetOrderData());
   };

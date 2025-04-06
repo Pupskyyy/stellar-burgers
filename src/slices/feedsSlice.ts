@@ -7,9 +7,7 @@ import { TOrder } from '../utils/types';
 import { getFeedsApi } from '../utils/burger-api';
 import { RootState } from '../services/store';
 
-export const getFeeds = createAsyncThunk('feeds/getAll', async () =>
-  getFeedsApi()
-);
+export const getFeeds = createAsyncThunk('feeds/getAll', getFeedsApi);
 
 type TFeedsState = {
   feeds: Array<TOrder>;

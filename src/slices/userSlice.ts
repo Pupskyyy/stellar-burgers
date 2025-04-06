@@ -19,18 +19,9 @@ import { TUser, TOrder } from '../utils/types';
 import { act } from 'react-dom/test-utils';
 import { setCookie } from '../utils/cookie';
 
-export const getUser = createAsyncThunk('user/getUser', async () => {
-  const dataUser = getUserApi();
-  return dataUser;
-});
+export const getUser = createAsyncThunk('user/getUser', getUserApi);
 
-export const updateUser = createAsyncThunk(
-  'user/updateUser',
-  async (newUserData: Partial<TRegisterData>) => {
-    const dataUser = updateUserApi(newUserData);
-    return dataUser;
-  }
-);
+export const updateUser = createAsyncThunk('user/updateUser', updateUserApi);
 
 export const register = createAsyncThunk(
   'user/register',
@@ -104,7 +95,6 @@ export const userSlice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.userRequest = false;
         state.userError = null;
-        // Записываем в `state.data` только нужные поля, исключая `success`
         state.userData = action.payload.user;
         state.isAuthenticated = true;
         state.isAuthChecked = true;
@@ -125,7 +115,6 @@ export const userSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.userRequest = false;
         state.userError = null;
-        // Записываем в `state.data` только нужные поля, исключая `success`
         state.userData = action.payload.user;
         state.isAuthenticated = true;
         state.isAuthChecked = true;

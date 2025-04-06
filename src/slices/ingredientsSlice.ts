@@ -9,7 +9,7 @@ import { RootState } from '../services/store';
 
 export const getIngredients = createAsyncThunk<Array<TIngredient>, void>(
   'ingredients/getAll',
-  async () => getIngredientsApi()
+  getIngredientsApi
 );
 
 type TIngredientsState = {

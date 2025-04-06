@@ -8,20 +8,12 @@ import {
   getUserOrdersDataSelector,
   getIsLoadingOrderSelector
 } from '../../slices/orderSlice';
-import {
-  getIngredientsListSelector,
-  getIngredients
-} from '../../slices/ingredientsSlice';
 
 export const ProfileOrders: FC = () => {
-  const ingredients = useSelector(getIngredientsListSelector);
   const isLoadingOrders = useSelector(getIsLoadingOrderSelector);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(userOrders());
-    if (!ingredients.length) {
-      dispatch(getIngredients());
-    }
   }, []);
   /** TODO: взять переменную из стора */
   const orders: TOrder[] = useSelector(getUserOrdersDataSelector);

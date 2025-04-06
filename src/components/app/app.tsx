@@ -23,17 +23,17 @@ import { IngredientDetails } from '../../components/ingredient-details';
 import { ProtectedRoute } from '../../components/protected-route';
 import { AppHeader } from '@components';
 
-import { useSelector, useDispatch } from '../../services/store';
-import { getIsAuthenticatedSelector } from '../../slices/userSlice';
-import { getCookie } from '../../utils/cookie';
+import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
 import { getUser } from '../../slices/userSlice';
+import { getIngredients } from '../../slices/ingredientsSlice';
 import { Preloader } from '@ui';
 
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUser());
+    dispatch(getIngredients());
   }, []);
 
   const location = useLocation();

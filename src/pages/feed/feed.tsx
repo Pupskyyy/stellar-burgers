@@ -21,13 +21,9 @@ export const Feed: FC = () => {
     dispatch(getFeeds());
   };
   const orders: TOrder[] = useSelector(getFeedsListSelector);
-  const ingredients = useSelector(getIngredientsListSelector);
 
   useEffect(() => {
     dispatch(getFeeds());
-    if (!ingredients.length) {
-      dispatch(getIngredients());
-    }
   }, []);
 
   if (isLoading || !orders.length) {
