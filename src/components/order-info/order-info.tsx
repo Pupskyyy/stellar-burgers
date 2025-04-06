@@ -1,21 +1,38 @@
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useEffect } from 'react';
+import { useMatch } from 'react-router-dom';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
+import { useSelector, useDispatch } from '../../services/store';
+import { getIngredientsListSelector } from '../../slices/ingredientsSlice';
+import { getFeedSelectorByNumber, getFeeds } from '../../slices/feedsSlice';
+import {
+  getUserOrderByNumberSelector,
+  getOrderByNumber
+} from '../../slices/orderSlice';
 
 export const OrderInfo: FC = () => {
+  const profileMatch = useMatch('/profile/orders/:number')?.params.number;
+  const feedMatch = useMatch('/feed/:number')?.params.number;
+  const orderNumber = profileMatch || feedMatch;
+  const dispatch = useDispatch();
   /** TODO: взять переменные orderData и ingredients из стора */
-  const orderData = {
-    createdAt: '',
-    ingredients: [],
-    _id: '',
-    status: '',
-    name: '',
-    updatedAt: 'string',
-    number: 0
-  };
+  const orderData = useSelector(
+    profileMatch
+      ? getUserOrderByNumberSelector(orderNumber!)
+      : getFeedSelectorByNumber(orderNumber!)
+  );
 
-  const ingredients: TIngredient[] = [];
+  const ingredients: TIngredient[] = useSelector(getIngredientsListSelector);
+
+  useEffect(() => {
+    if (!orderNumber) return;
+    if (profileMatch) {
+      dispatch(getOrderByNumber(Number(orderNumber)));
+    } else if (feedMatch) {
+      dispatch(getFeeds());
+    }
+  }, []);
 
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {

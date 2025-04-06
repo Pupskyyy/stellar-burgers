@@ -1,4 +1,4 @@
-import { useSelector } from '../../services/store';
+import { getIsLoadingIngredientsSelector } from '../../slices/ingredientsSlice';
 
 import styles from './constructor-page.module.css';
 
@@ -7,13 +7,17 @@ import { BurgerConstructor } from '../../components';
 import { Preloader } from '../../components/ui';
 import { FC } from 'react';
 
+import { useSelector } from '../../services/store';
+import { getIsAuthCheckedSelector } from '../../slices/userSlice';
+
 export const ConstructorPage: FC = () => {
   /** TODO: взять переменную из стора */
-  const isIngredientsLoading = false;
+  const isIngredientsLoading = useSelector(getIsLoadingIngredientsSelector);
+  const isAuthChecked = useSelector(getIsAuthCheckedSelector);
 
   return (
     <>
-      {isIngredientsLoading ? (
+      {isIngredientsLoading || !isAuthChecked ? (
         <Preloader />
       ) : (
         <main className={styles.containerMain}>
