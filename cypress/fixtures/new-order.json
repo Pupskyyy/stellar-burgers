@@ -1,0 +1,31 @@
+{
+  "success": true,
+  "name": "Краторный spicy био-марсианский бургер",
+  "order": {
+    "ingredients": [
+      {
+        "_id": "643d69a5c3f7b9001cfa093c",
+        "name": "Краторная булка N-200i",
+        "type": "bun",
+        "price": 1255
+      },
+      {
+        "_id": "643d69a5c3f7b9001cfa0941",
+        "name": "Биокотлета из марсианской Магнолии",
+        "type": "main",
+        "price": 424
+      },
+      {
+        "_id": "643d69a5c3f7b9001cfa0942",
+        "name": "Соус Spicy-X",
+        "type": "sauce",
+        "price": 90
+      }
+    ],
+    "_id": "680e3eade8e61d001cec4d9d",
+    "status": "done",
+    "name": "Краторный spicy био-марсианский бургер",
+    "number": 75753,
+    "price": 3024
+  }
+}
